@@ -1,6 +1,22 @@
 # GaspardTourdiat.fr — Specification document
 
-> Personal portfolio website built with React.
+> Personal portfolio website built with React -> Cybersecurity-style website with a 'hacker' theme.
+
+## Deployment
+
+### Docker
+
+This website will be hosted on a docker container including at least :
+- nginx server
+- mariadb database
+
+### Makefile
+
+This website can be deployed using `make run`.
+
+### Credentials
+
+Credentials are stored in a .env at the root of the repository.
 
 ## Pages
 
@@ -17,7 +33,9 @@ This page will give a brief presentation of me. It needs to include :
 
 ### Projects (/projects)
 
-This page will show all projects. Projects are Markdown files located in the ./projects_markdowns directory. It gives a date depending on the Markdown file date. When clicking on a project, the Markdown content appears under the project list, and the browser automatically navigates downwards to the head of the Markdown file content.
+This page will show all projects. All projects are directly obtained from my github : `https://github.com/sousampere`.
+
+There is an administration page that enable the management of the projects (the ones that I want to pin, hide, etc.)
 
 ### About (/about)
 

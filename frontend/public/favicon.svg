@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="gaspardtourdiat.fr">
+  <rect width="64" height="64" rx="14" fill="#04070b"/>
+  <rect x="0.75" y="0.75" width="62.5" height="62.5" rx="13.25" fill="none" stroke="#16232e" stroke-width="1.5"/>
+  <path d="M16 21 L27 32 L16 43" fill="none" stroke="#2bff88" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M33 43 H49" fill="none" stroke="#2bff88" stroke-width="6" stroke-linecap="round" opacity="0.55"/>
+</svg>

@@ -1,0 +1,248 @@
+@import 'tailwindcss';
+
+@import '@fontsource-variable/jetbrains-mono';
+@import '@fontsource-variable/inter';
+
+/* ==========================================================================
+   Design tokens
+   ========================================================================== */
+
+@theme {
+  --font-mono: 'JetBrains Mono Variable', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --font-sans: 'Inter Variable', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+  /* Surfaces, from the void up to a raised panel. */
+  --color-void: #04070b;
+  --color-abyss: #060b11;
+  --color-panel: #0a1119;
+  --color-raised: #0f1922;
+  --color-line: #16232e;
+  --color-line-hi: #22384a;
+
+  /* Text, from full contrast down to a whisper. */
+  --color-ink: #dbe8ee;
+  --color-muted: #7d93a1;
+  --color-faint: #4a5e6b;
+
+  /* Signal colours. */
+  --color-acid: #2bff88;
+  --color-acid-dim: #173d2a;
+  --color-cyan: #3ddcff;
+  --color-amber: #ffb454;
+  --color-rose: #ff5f87;
+  --color-violet: #a78bfa;
+
+  --radius-window: 0.875rem;
+
+  --animate-marquee: marquee 46s linear infinite;
+  --animate-caret: caret 1.05s step-end infinite;
+  --animate-drift: drift 14s ease-in-out infinite;
+  --animate-sweep: sweep 8s linear infinite;
+  --animate-rise: rise 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+  --animate-pulse-dot: pulse-dot 2.4s ease-in-out infinite;
+}
+
+@keyframes marquee {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+@keyframes caret {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+@keyframes drift {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(0, -1.5%, 0) scale(1.04);
+  }
+}
+
+@keyframes sweep {
+  from {
+    transform: translateY(-110%);
+  }
+  to {
+    transform: translateY(110%);
+  }
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 14px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes pulse-dot {
+  0%,
+  100% {
+    opacity: 1;
+    box-shadow: 0 0 0 0 color-mix(in oklab, var(--color-acid) 55%, transparent);
+  }
+  50% {
+    opacity: 0.75;
+    box-shadow: 0 0 0 6px color-mix(in oklab, var(--color-acid) 0%, transparent);
+  }
+}
+
+/* ==========================================================================
+   Base
+   ========================================================================== */
+
+@layer base {
+  * {
+    min-width: 0;
+  }
+
+  html {
+    color-scheme: dark;
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    margin: 0;
+    min-height: 100dvh;
+    background-color: var(--color-void);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+  }
+
+  ::selection {
+    background: color-mix(in oklab, var(--color-acid) 80%, transparent);
+    color: var(--color-void);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-acid);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+
+  ::-webkit-scrollbar {
+    width: 11px;
+    height: 11px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: var(--color-void);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: var(--color-line-hi);
+    border: 3px solid var(--color-void);
+    border-radius: 999px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: #2f4d61;
+  }
+
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+}
+
+/* ==========================================================================
+   Custom utilities
+   ========================================================================== */
+
+/* Faint blueprint grid used behind every page. */
+@utility grid-mesh {
+  background-image:
+    linear-gradient(to right, color-mix(in oklab, var(--color-line) 70%, transparent) 1px, transparent 1px),
+    linear-gradient(to bottom, color-mix(in oklab, var(--color-line) 70%, transparent) 1px, transparent 1px);
+  background-size: 52px 52px;
+}
+
+/* CRT scanlines. Kept very subtle so text stays readable. */
+@utility scanlines {
+  background-image: repeating-linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.022) 0px,
+    rgba(255, 255, 255, 0.022) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+}
+
+@utility text-glow {
+  text-shadow:
+    0 0 18px color-mix(in oklab, var(--color-acid) 45%, transparent),
+    0 0 42px color-mix(in oklab, var(--color-acid) 18%, transparent);
+}
+
+@utility text-glow-cyan {
+  text-shadow:
+    0 0 18px color-mix(in oklab, var(--color-cyan) 45%, transparent),
+    0 0 42px color-mix(in oklab, var(--color-cyan) 18%, transparent);
+}
+
+/* The macOS-window chrome shared by the navbar, cards and terminal. */
+@utility window-chrome {
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-window);
+  background: color-mix(in oklab, var(--color-panel) 88%, transparent);
+  backdrop-filter: blur(18px) saturate(140%);
+  -webkit-backdrop-filter: blur(18px) saturate(140%);
+  box-shadow:
+    0 1px 0 0 rgba(255, 255, 255, 0.045) inset,
+    0 24px 60px -28px rgba(0, 0, 0, 0.95);
+}
+
+@utility hairline-top {
+  border-top: 1px solid var(--color-line);
+}
+
+/* Pauses any animation on hover — used by the marquee. */
+@utility pause-on-hover {
+  &:hover * {
+    animation-play-state: paused;
+  }
+}
+
+/* ==========================================================================
+   Motion preferences
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  html {
+    scroll-behavior: auto;
+  }
+}
